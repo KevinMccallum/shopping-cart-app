@@ -1,17 +1,50 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import NavBar from './components/NavBar'
+import ItemPage from './components/ItemPage'
+import CartPage from './components/CartPage'
+import './index.css'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const products = [
+  { id: 1, name: 'Phone', price: 299 },
+  { id: 2, name: 'Laptop', price: 999 },
+  { id: 3, name: 'Headphones', price: 99 },
+  { id: 4, name: 'Camera', price: 799 },
+]
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+class App extends React.Component {
+  state = {
+    activePage: 'store',
+    cart: [],
+  }
+
+  handleAdd = (item) => {
+    this.setState((prev) => ({
+      cart: [...prev.cart, item],
+    }))
+  }
+
+  handlePageChange = (page) => {
+    this.setState({
+      activePage: page,
+    })
+  }
+
+  render() {
+    const { activePage, cart } = this.state
+    return (
+      <div className="App">
+        <NavBar cartCount={cart.length} pageChange={this.handlePageChange} />
+        <main>
+          {activePage === 'store' ? (
+            <ItemPage items={products} onAddToCart={this.handleAdd} />
+          ) : (
+            <CartPage items={cart} />
+          )}
+        </main>
+      </div>
+    )
+  }
+}
+
+ReactDOM.render(<App />, document.querySelector('#root'))
