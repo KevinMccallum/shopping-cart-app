@@ -16,11 +16,11 @@ const summarizer = (result, item) => {
   return result
 }
 
-const CartPage = ({ items }) => {
+const CartPage = ({ items, pageChange }) => {
   const cart = items.reduce(summarizer, [])
 
   return (
-    <div>
+    <div className="CartPage">
       <ul>
         {cart.map((item) => (
           <Item key={item.id} item={item}>
@@ -28,6 +28,13 @@ const CartPage = ({ items }) => {
           </Item>
         ))}
       </ul>
+      <div className="total">
+        Total: $
+        {cart.reduce((total, item) => {
+          return total + item.price * item.count
+        }, 0)}
+      </div>
+      <button onClick={() => pageChange('checkout')}>Checkout Now</button>
     </div>
   )
 }

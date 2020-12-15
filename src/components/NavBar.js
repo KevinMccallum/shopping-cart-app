@@ -14,20 +14,20 @@ const NavBar = ({ cartCount, pageChange }) => (
           Store
         </a>
       </li>
-      <a
-        href="/cart"
-        onClick={(e) => {
-          e.preventDefault()
-          pageChange('cart')
-        }}
-      >
-        <li>
+      <li className="cart-count">
+        <a
+          href="/cart"
+          onClick={(e) => {
+            e.preventDefault()
+            pageChange('cart')
+          }}
+        >
           <span role="img" aria-label="items in cart">
             🛒
           </span>
           {cartCount === 0 ? 'Empty' : cartCount}
-        </li>
-      </a>
+        </a>
+      </li>
     </ul>
   </nav>
 )

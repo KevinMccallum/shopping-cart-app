@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import NavBar from './components/NavBar'
 import ItemPage from './components/ItemPage'
 import CartPage from './components/CartPage'
+import CheckoutPage from './components/CheckoutPage'
 import './index.css'
 
 const products = [
@@ -38,8 +39,10 @@ class App extends React.Component {
         <main>
           {activePage === 'store' ? (
             <ItemPage items={products} onAddToCart={this.handleAdd} />
+          ) : activePage === 'cart' ? (
+            <CartPage items={cart} pageChange={this.handlePageChange} />
           ) : (
-            <CartPage items={cart} />
+            <CheckoutPage items={cart} />
           )}
         </main>
       </div>
